@@ -125,4 +125,91 @@ public List<Message> getMessages(){
 <img src="https://user-images.githubusercontent.com/48157631/81422743-b13b7b80-9153-11ea-9096-511484b3680b.png" length="500">
 <img src="https://user-images.githubusercontent.com/48157631/81422755-b4cf0280-9153-11ea-8ed9-bdc21b4afc6f.png" length="500">
 
-Cette méthode est utilisée pour afficher tous les messages du chat. Elle sera utile par la suite pour 
+Cette méthode est utilisée pour afficher tous les messages du chat comme on peut l'observer sur la capture.
+
+ ## INSOMNIA
+
+Pour tester les commandes de création et de suppression de message mais également pour nous affranchir des instructions curl nous avons utilisé le logiciel Insomnia. En effet, nous avons trouvé intéressant de tester cet outil servant à envoyer des requêtes HTTP aux services basés sur REST.
+
+**CREATE**
+
+Premièrement nous avons créé la méthode d'ajout avec la méthode d'envoi `@POST`, on a fixé les contenus acceptés (XML,JSON) et on récupère l'objet avec getValue() comme ci-dessous :
+
+```jsx
+@POST
+@Path("/create")
+@Produces({ MediaType.APPLICATION_XML, MediaType.TEXT_XML, MediaType.APPLICATION_JSON })
+@Consumes({ MediaType.APPLICATION_XML, MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
+
+public Message createMessage(JAXBElement<Message> element) {	//On indique que l'on attend un message
+	
+	Message message = element.getValue();
+	
+	System.out.println("Message sent : " + message);
+	MessageList.getInstance().createMessage(message);
+	return message; 					//On obtient le message désérialisé avec getValue
+	}
+```
+
+**DELETE**
+
+Pour la suppression de message on a également créé une methode mais cette fois `@DELETE` afin de supprimer le message spécifié par un ID entré en paramètres.
+
+```jsx
+@DELETE
+@Path("/delete/{id}")
+@Produces({ MediaType.APPLICATION_XML, MediaType.TEXT_XML, MediaType.APPLICATION_JSON })
+public Response delMessage(@PathParam("id") Long id){
+	
+	MessageList.getInstance().delMessage(id);
+	System.out.println("Message deleted is number : " + id);
+	return Response.ok().build();
+	}
+```
+
+**Test d'ajout de message**
+
+Une fois l'implémentation des méthodes terminées on a utilisé Insomnia pour les tester :
+
+On envoie un message en spécifiant le champ `Content`
+<img src="https://user-images.githubusercontent.com/48157631/81425754-77b93f00-9158-11ea-9901-22b70af6e7bb.png" length="500">
+
+Puis lors de l'affichage de tous les messages, on observe que le message a bien été ajouté à la liste et qu'il a pris l'ID suivant
+<img src="https://user-images.githubusercontent.com/48157631/81425750-7720a880-9158-11ea-8eb6-c8a204516e82.png" length="500">
+
+**Test de suppression de message**
+
+Après avoir ajouté la méthode DELETE dans Insomnia en utilisant l'adresse suivante `http://localhost:8080/pr.tp.services/api/ressource/delete/3`, on lance une requête. Ensuite en relançant une requête qui affiche tout les messages on observe bien que le dernier message a bien été effacé.
+
+<img src="https://user-images.githubusercontent.com/48157631/81426269-40975d80-9159-11ea-9b73-305148aade0d.png" length="500">
+
+
+## Client du chat avec Javascript
+
+Nous avons ensuite créé un client en JavaScript à l'aide des fichiers `chat.html` et `mais.js` fournis dans le TP.
+
+Commençons par le fichier HTML contenant les informations de l'affichage de notre page WEB.
+La page est divisée en deux parties :
+
+Une affichant le contenu du chat (tous les messages)
+```jsx
+<div id = "chatContent">
+</div>
+```
+L'autre affichant le formulaire d'envoi de message avec le bouton d'envoi.
+```jsx
+<!-- Envoyer un message -->
+<form name="chatForm" action="" method="POST">
+    <input type="text" name="ligne" value="" id="ligne">
+    <button type="button" id="submitButton">send</button>
+</form>
+```
+Nous avons ajouté un bouton pour supprimer
+
+```jsx
+<!-- Supprimer un message -->
+<form name="chatDelete" action="" method="DELETE">
+    <input type="text" name="ligne2" value="" id="ligne2">
+    <button type="button2" id="submitButton2">delete</button>
+</form>
+```
