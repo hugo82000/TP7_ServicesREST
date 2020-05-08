@@ -33,16 +33,18 @@ public class Message {
   private String date;
   }
 ```
+**2. Ecrire la classe MessageRessource.java**
 
-Cette étape permet de créer la connexion pour communiquer avec notre serveur.
+Nous avons donc créé la classe et remplie avec la partie de code fournie.
+Pour un premier test, nous avons commencé par créer une petite méthode `@GET` servant de ping comme suivant :
 
 ```jsx
-Channel channel = connection.createChannel();
+@GET
+@Path("/ping")
+public String getServerTime() {
+        System.out.println("RESTful Service 'MessageService' is running ==> ping");
+        return "received ping on "+new Date().toString();
+    }
 ```
-Cette étape permet de créer le canal permettant d'échanger les messages.
 
-**RabbitMq Manager**
-
-Ensuite on utilise [RabbitMQ Manager](https://www.rabbitmq.com/) pour afficher les messages MQTT qui transitent sur le serveur.
-
-## PARTIE 2 : Envoi d'une date
+<img src="https://user-images.githubusercontent.com/48157631/78666606-daa88380-78d7-11ea-91c7-ad68c10d50ab.PNG" length="500">
