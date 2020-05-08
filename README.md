@@ -215,7 +215,9 @@ Nous avons également ajouté un bouton pour la suppression des messages
     <button type="button2" id="submitButton2">delete</button>
 </form>
 ```
+
 **Rendu de la page**
+
 <img src="https://user-images.githubusercontent.com/48157631/81427671-66bdfd00-915b-11ea-82fe-e3bef976613b.png" length="500">
 
 ### main.js
@@ -267,4 +269,30 @@ Pour tester la page WEB, nous avons utilisé le navigateur Microsoft Edge car no
 
 **Page au lancement du serveur**
 
+<img src="https://user-images.githubusercontent.com/48157631/81428984-69215680-915d-11ea-8eb2-aa2c44f5375b.png" length="500">
 
+On voit bien ici que la liste des messages est mise à jour toutes les deux secondes.
+
+**Ajout de messages**
+
+<img src="https://user-images.githubusercontent.com/48157631/81429306-e51b9e80-915d-11ea-8e3a-b1f2a4acc582.png" length="500">
+
+Ici nos deux messages ont été envoyés et ont été ajoutés à la liste. On peut d'ailleurs observer dans la console le dernier message qui a été reçu par exemple avec les champs suivants en développant l'étiquette d'information :
+
+```jsx
+content: "Ah oui ça marche"
+date: "Fri May 08 18:57:25 CEST 2020"
+id: 4
+```
+
+**Suppression de messages**
+
+Pour ce dernier exemple nous avons supprimmé les messages id:0 et id:3
+
+<img src="https://user-images.githubusercontent.com/48157631/81429747-899de080-915e-11ea-9415-ee181a8efbdb.png" length="500">
+
+On peut observer qu'ils ont bien été supprimés et la console affiche le retour de notre fonction `deleteMessage`
+
+```jsx
+console.log("deleted message " + messageId);
+```
