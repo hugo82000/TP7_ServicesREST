@@ -36,6 +36,9 @@ public class Message {
 **2. Ecrire la classe MessageRessource.java**
 
 Nous avons donc créé la classe et remplie avec la partie de code fournie.
+
+***PING***
+
 Pour un premier test, nous avons commencé par créer une petite méthode `@GET` servant de ping comme suivant :
 
 ```jsx
@@ -50,3 +53,20 @@ public String getServerTime() {
 <img src="https://user-images.githubusercontent.com/48157631/81414531-687dc580-9147-11ea-8e68-83554bc3597e.jpg" length="500">
 <img src="https://user-images.githubusercontent.com/48157631/81414526-674c9880-9147-11ea-81e0-ae2b0e350df0.jpg" length="500">
 
+Notre serveur est donc accessible et retourne la date à laquelle la requête a été envoyée.
+
+***after***
+
+```jsx
+@Path("/after/{id}")
+@GET
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+
+public List<Message> getMessagesAfter(@PathParam("id") Long id){
+
+  System.out.println("message after " + id);
+  return MessageList.getInstance().getMessagesAfter(id);
+}
+```
+<img src="https://user-images.githubusercontent.com/48157631/81415181-5fd9bf00-9148-11ea-85f3-b1109cecc983.png" length="800">
+<img src="https://user-images.githubusercontent.com/48157631/81415179-5f412880-9148-11ea-82a6-8caa7f0a4c83.png" length="500">
