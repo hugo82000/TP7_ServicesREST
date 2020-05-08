@@ -18,7 +18,7 @@ Voici les méthodes à implémenter pour notre API :
 | /messages/delete/{id}  	| **DELETE** 	| *effacer le message d'ID {id}* 	|
 | /messages/{id}	| **GET** 	| *avoir le message d'ID {id}* 	|
 
-### Questions
+### Question
 
 **1. Faites en sorte que la classe Message puisse être passée en XML.**
 
@@ -33,7 +33,7 @@ public class Message {
   private String date;
   }
 ```
-**2. Ecrire la classe MessageRessource.java**
+## Classe MessageRessource
 
 Nous avons donc créé la classe et remplie avec la partie de code fournie.
 
@@ -55,7 +55,7 @@ public String getServerTime() {
 
 Notre serveur est donc accessible et retourne la date à laquelle la requête a été envoyée.
 
-***after***
+***AFTER***
 
 ```jsx
 @Path("/after/{id}")
@@ -70,3 +70,37 @@ public List<Message> getMessagesAfter(@PathParam("id") Long id){
 ```
 <img src="https://user-images.githubusercontent.com/48157631/81415181-5fd9bf00-9148-11ea-85f3-b1109cecc983.png" length="800">
 <img src="https://user-images.githubusercontent.com/48157631/81415179-5f412880-9148-11ea-82a6-8caa7f0a4c83.png" length="500">
+
+Le code retourne les messages qui se trouvent après l'ID spécifié dans l'URL. Nous avons eu du mal au début car dans l'URL nous mettions un URL qui était supérieur à 3 et donc aucun message ne pouvait s'afficher.
+
+***BETWEEN***
+
+```jsx
+@Path("/between/{id1}/{id2}")
+@GET
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+
+public List<Message> getMessageBetween(@PathParam("id1") Long id1, @PathParam("id2") Long id2){
+	
+  System.out.println("message between : " + id1+ " and "+ id2 );
+  return MessageList.getInstance().getMessagesBetween(id1,id2);
+	}
+```
+
+<img src="https://user-images.githubusercontent.com/48157631/81415791-2f465500-9149-11ea-959c-0aecd0a3f7ee.png" length="500">
+
+Cette méthode retourne les messages entre l'ID1 et l'ID2 spécifié dans l'URL comme sur la capture.
+
+***MESSAGE (pour récupérer le message souhaité via son ID)***
+
+```jsx
+@Path("/message/{id}")
+@GET
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+
+public Message getMessage(@PathParam("id") Long id) {
+	
+  System.out.println("message number : " + id);
+  return MessageList.getInstance().getMessage(id);
+	}
+  ```
