@@ -6,7 +6,7 @@
 ## Ecriture d'un serveur chat
 
 
-Pour cette partie, nous avons récupéré les deux classes `Message` et `MessageList`, la première représentant les messages à manipuler et la seconde représentant la liste de ces messages pour les stocker sur le serveur.
+Pour cette partie, nous avons récupéré les deux classes `Message.java` et `MessageList.java`, la première représentant les messages à manipuler et la seconde représentant la liste de ces messages pour les stocker sur le serveur.
 
 Voici les méthodes à implémenter pour notre API :
 
@@ -18,12 +18,22 @@ Voici les méthodes à implémenter pour notre API :
 | /messages/delete/{id}  	| **DELETE** 	| *effacer le message d'ID {id}* 	|
 | /messages/{id}	| **GET** 	| *avoir le message d'ID {id}* 	|
 
+### Questions
+
+**1. Faites en sorte que la classe Message puisse être passée en XML.**
+
+Pour cela il suffit d'ajouter d'associer la classe annotée avec un nœud racine d'un document XML comme suivant, la ligne `@XmlRootElement` que nous avons ajouté à la classe `Message.java`
 
 ```jsx
-ConnectionFactory factory = new ConnectionFactory();
-factory.setUri("amqp://bkimztxi:kfDaEm6D0v51CY45fcsUgNB7vmMRM3a0@stingray.rmq.cloudamqp.com/bkimztxi");
-Connection connection = factory.newConnection();
+@XmlRootElement
+public class Message {
+
+  private Long id;
+  private String content;
+  private String date;
+  }
 ```
+
 Cette étape permet de créer la connexion pour communiquer avec notre serveur.
 
 ```jsx
