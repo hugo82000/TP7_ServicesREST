@@ -188,6 +188,8 @@ Après avoir ajouté la méthode DELETE dans Insomnia en utilisant l'adresse sui
 
 Nous avons ensuite créé un client en JavaScript à l'aide des fichiers `chat.html` et `mais.js` fournis dans le TP.
 
+### chat.html
+
 Commençons par le fichier HTML contenant les informations de l'affichage de notre page WEB.
 La page est divisée en deux parties :
 
@@ -204,7 +206,7 @@ L'autre affichant le formulaire d'envoi de message avec le bouton d'envoi.
     <button type="button" id="submitButton">send</button>
 </form>
 ```
-Nous avons ajouté un bouton pour supprimer
+Nous avons également ajouté un bouton pour la suppression des messages
 
 ```jsx
 <!-- Supprimer un message -->
@@ -213,3 +215,56 @@ Nous avons ajouté un bouton pour supprimer
     <button type="button2" id="submitButton2">delete</button>
 </form>
 ```
+**Rendu de la page**
+<img src="https://user-images.githubusercontent.com/48157631/81427671-66bdfd00-915b-11ea-82fe-e3bef976613b.png" length="500">
+
+### main.js
+
+Nous avons d'abord modifié le temps de rafraichissement de la Liste de message à 2 secondes pour pouvoir debugger plus facilement notre code dans le mode de développement du navigateur.
+
+```jsx
+console.log("call update again in 2s");
+setTimeout(updateMessages, 2000);
+```
+
+Ensuite nous nous sommes attaqués à la partie suppression de messages qui n'était pas implémentée de base.
+Nous avons créé une méthode `deleteMessage(messageId)`
+```jsx
+    function deleteMessage(messageId) {
+    	 var token = $('meta[name="csrf-token"]').attr('content');
+    	
+        $.ajax({
+            type : 'DELETE',
+            url : rootURL + "/delete/" + messageId,
+            data: { _method: 'delete',  _token :token },
+            success : function(data) {
+                console.log("deleted message " + messageId);
+                $("ligne2" + messageId).remove();
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                console.log('deleteMessage error: ' + textStatus);
+            }
+        });
+    }
+```
+
+La variable messageId est récupérée dans le second champ de la page WEB, le formulaire utilisé pour la suppression de message en passant en paramètre le numéro de message que l'on veut supprimer.
+```jsx
+function deleteContent() {
+        var ligne2 = $("#ligne2").val();
+        $("#ligne2").val("");
+        deleteMessage(ligne2);
+    }
+    $("#submitButton2").click(function() {
+        deleteContent();
+    });
+```
+On lance la fonction `deleteContent()` à l'appui sur le bouton `delete` et la fonction récupère le numéro entré pour le passer en paramètre dans la fonction `deleteMessage` créé précédemment qui va supprimer le message selectionné.
+
+## Test de la page WEB
+
+Pour tester la page WEB, nous avons utilisé le navigateur Microsoft Edge car nous avons trouvé que son mode développeur était plus intuitif que celui de Chrome.
+
+**Page au lancement du serveur**
+
+
