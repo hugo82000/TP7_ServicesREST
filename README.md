@@ -89,7 +89,7 @@ public List<Message> getMessageBetween(@PathParam("id1") Long id1, @PathParam("i
 
 <img src="https://user-images.githubusercontent.com/48157631/81415791-2f465500-9149-11ea-959c-0aecd0a3f7ee.png" length="500">
 
-Cette méthode retourne les messages entre l'ID1 et l'ID2 spécifié dans l'URL comme sur la capture.
+Cette méthode retourne les messages entre l'ID1 et l'ID2 spécifié dans l'URL comme sur la capture. On remarque ici que l'affichage est en XML comparé à la capture précédente qui était au format JSON.
 
 ***MESSAGE (pour récupérer le message souhaité via son ID)***
 
