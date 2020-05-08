@@ -37,7 +37,7 @@ public class Message {
 
 Nous avons donc créé la classe et remplie avec la partie de code fournie.
 
-***PING***
+### PING
 
 Pour un premier test, nous avons commencé par créer une petite méthode `@GET` servant de ping comme suivant :
 
@@ -55,7 +55,7 @@ public String getServerTime() {
 
 Notre serveur est donc accessible et retourne la date à laquelle la requête a été envoyée.
 
-***AFTER***
+### AFTER
 
 ```jsx
 @Path("/after/{id}")
@@ -73,7 +73,7 @@ public List<Message> getMessagesAfter(@PathParam("id") Long id){
 
 Le code retourne les messages qui se trouvent après l'ID spécifié dans l'URL. Nous avons eu du mal au début car dans l'URL nous mettions un URL qui était supérieur à 3 et donc aucun message ne pouvait s'afficher.
 
-***BETWEEN***
+### BETWEEN
 
 ```jsx
 @Path("/between/{id1}/{id2}")
@@ -91,7 +91,7 @@ public List<Message> getMessageBetween(@PathParam("id1") Long id1, @PathParam("i
 
 Cette méthode retourne les messages entre l'ID1 et l'ID2 spécifié dans l'URL comme sur la capture. On remarque ici que l'affichage est en XML comparé à la capture précédente qui était au format JSON.
 
-***MESSAGE (pour récupérer le message souhaité via son ID)***
+### MESSAGE (pour récupérer le message souhaité via son ID)
 
 ```jsx
 @Path("/message/{id}")
@@ -104,3 +104,25 @@ public Message getMessage(@PathParam("id") Long id) {
   return MessageList.getInstance().getMessage(id);
 	}
   ```
+<img src="https://user-images.githubusercontent.com/48157631/81422376-2a869e80-9153-11ea-8947-48eb37f36735.png" length="500">
+<img src="https://user-images.githubusercontent.com/48157631/81422381-2b1f3500-9153-11ea-9bed-6317f2ecc5b4.png" length="500">
+
+Cette méthode retourne le message choisi via le paramètre ID entré dans l'URL, on voit sur la capture qu'avec l'ID 2 on récupère bien le message correspondant.
+
+### MESSAGES (pour récupérer tous les messages) 
+
+```jsx
+@Path("/messages")
+@GET
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+
+public List<Message> getMessages(){
+
+  System.out.println("All messages");
+  return MessageList.getInstance().getMessages();
+	}
+  ```
+<img src="https://user-images.githubusercontent.com/48157631/81422743-b13b7b80-9153-11ea-9096-511484b3680b.png" length="500">
+<img src="https://user-images.githubusercontent.com/48157631/81422755-b4cf0280-9153-11ea-8ed9-bdc21b4afc6f.png" length="500">
+
+Cette méthode est utilisée pour afficher tous les messages du chat. Elle sera utile par la suite pour 
