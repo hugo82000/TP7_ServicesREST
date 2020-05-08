@@ -47,4 +47,5 @@ public String getServerTime() {
     }
 ```
 
-<img src="https://user-images.githubusercontent.com/48157631/78666606-daa88380-78d7-11ea-91c7-ad68c10d50ab.PNG" length="500">
+<img src="https://user-images.githubusercontent.com/48157631/81414531-687dc580-9147-11ea-8e68-83554bc3597e.jpg" length="500">
+<img src="https://user-images.githubusercontent.com/48157631/81414531-687dc580-9147-11ea-8e68-83554bc3597e.jpg" length="500">
