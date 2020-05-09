@@ -1,6 +1,6 @@
 # Compte Rendu TP7 Services REST
 
-*Simon Le Guevel*
+*Simon Le Guevel* - 
 *Hugo Mathieux*
 
 ## Ecriture d'un serveur chat
